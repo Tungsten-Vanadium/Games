@@ -12,14 +12,14 @@
 
 class Wall{
 private:
-	std::vector<Tile> wall;
+	std::list<Tile> wall;
 	void fillWall();
 public:
 	Wall();
 	~Wall();
 	int getSize();
 	std::string display();
-	void drawFromWall(bool front);
+	Tile drawFromWall(bool front);
 };
 
 #endif /* WALL_H_ */
