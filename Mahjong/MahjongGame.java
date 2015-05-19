@@ -145,7 +145,7 @@ public class MahjongGame {
 			// Keeps game going until somebody wins or 8 tiles are left in the wall
 			while (!won && wall.size() > 8) {
 				// Checks each player in order for a win
-				for (int lcv = person; lcv < person + 3; lcv++) {
+				for (int lcv = person; lcv < person + 4; lcv++) {
 					if (players[lcv % 4].checkForWin(discarded.get(discarded.size() - 1)))
 						won = true;
 				}
@@ -186,6 +186,7 @@ public class MahjongGame {
 				System.out.println("Since there are only 8 tiles left, the game ends in a draw.");
 			}else{
 				System.out.println(players[person % 4].name + " has won!");
+				players[person % 4].display();
 			}
 			System.out.println("Play again? Y/N");
 			String playA = input.next();

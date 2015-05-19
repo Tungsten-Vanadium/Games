@@ -1,0 +1,22 @@
+1. Check for singles
+	1.a. Check if they can be in a sequence
+		1.a.1. Check how many sequences that single tile can be in
+		1.a.2. Remove proposed sequence from hand (one instance for each sequence) and start over with reduced hand
+	1.b. Return false
+2. Check for doubles
+	2.a. Check if it must be a pair
+		2.a.1. Check if a pair has already been made
+			2.a.1.a Return false
+		2.a.2. Remove pair and start over with reduced hand
+	2.b. Check what sequences both can be involved in
+		2.b.1 Remove proposed sequences from hand (one instance for each pair of sequences) and start over with reduced hand
+	2.c. Return false
+3. Check for triples
+	3.a. Check if it must be a triple
+		3.a.1. Remove triple from hand and start over with reduced hand
+	3.b. Check if a pair has been made
+		3.b.1. Return false
+	3.c. Remove pair and start over with reduced hand
+4. Check for quads
+	4.a. Remove triple and start over with reduced hand
+5. Return true

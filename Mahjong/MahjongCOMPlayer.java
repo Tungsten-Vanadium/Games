@@ -63,7 +63,7 @@ public class MahjongCOMPlayer extends MahjongPlayer {
 			Tile[] add = {thrown, thrown, thrown, thrown};
 			show.add(add);
 			for(int lcv = 0; lcv < 3; lcv++)
-				hand.remove(thrown);
+				rem(thrown);
 			MahjongGame.discarded.remove(thrown);
 			Tile get = MahjongGame.wall.remove(MahjongGame.wall.size() - 1);
 			hand.add(get);
@@ -87,8 +87,8 @@ public class MahjongCOMPlayer extends MahjongPlayer {
 			System.out.println(name + " made a pong.");
 			Tile[] add = {thrown, thrown, thrown};
 			show.add(add);
-			hand.remove(thrown);
-			hand.remove(thrown);
+			rem(thrown);
+			rem(thrown);
 			MahjongGame.discarded.remove(thrown);
 		}
 		return discard(west, north, east, south);

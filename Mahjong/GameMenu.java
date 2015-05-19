@@ -36,7 +36,7 @@ public class GameMenu {
 				break;
 			case 2:
 				// Rummykub (incomplete)
-				new RummykubGame().rummykubGame();
+				//new RummykubGame().rummykubGame();
 				break;
 			case 3:
 				// Texas Hold'em (incomplete)

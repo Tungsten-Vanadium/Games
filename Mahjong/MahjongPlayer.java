@@ -27,8 +27,21 @@ public abstract class MahjongPlayer {
 		hand.add(newTile);
 	}
 	/**Throws a tile out*/
-	protected void rem(Tile throwTile){
-		hand.remove(throwTile);
+	protected Tile rem(Tile throwTile){
+		for (int lcv = 0; lcv < hand.size(); lcv++) 
+			if (hand.get(lcv).toString().equals(throwTile.toString())) {
+				return hand.remove(lcv);
+			}
+		return new Tile(0, 0);
+	}
+	/**Displays hand and showing*/
+	protected void display(){
+		for(int lcv = 0; lcv < hand.size(); lcv++)
+			System.out.print(hand.get(lcv).toString() + " ");
+		for(int lcv = 0; lcv < show.size(); lcv++)
+			for(int lcv2 = 0; lcv2 < show.get(lcv).length; lcv2++)
+				System.out.print(show.get(lcv)[lcv2].toString() + " ");
+		System.out.println();
 	}
 	/**Divides the hand by suit for sorting the hand*/
 	protected ArrayList<Tile> diviForSort(){
@@ -232,9 +245,16 @@ public abstract class MahjongPlayer {
 					two.remove(b[lcv2]);
 				for(int lcv2 = 0; lcv2 < c.length; lcv2++)
 					three.remove(c[lcv2]);
-				// Couldn't figure out how to separate them and still do recursion
 				// Recursively checks after removing the proposed sequence
-				if(!a.equals(new Tile[0])){
+				boolean acheck = false, bcheck = false, ccheck = false;
+				if(!a.equals(new Tile[0]))
+					acheck = assistCheck(one);
+				if(!b.equals(new Tile[0]))
+					bcheck = assistCheck(two);
+				if(!c.equals(new Tile[0]))
+					ccheck = assistCheck(three);
+				return acheck || bcheck || ccheck;
+				/*if(!a.equals(new Tile[0]))
 					if(!b.equals(new Tile[0])){
 						if(!c.equals(new Tile[0]))
 							return assistCheck(one) || assistCheck(two) || assistCheck(three);
@@ -256,7 +276,7 @@ public abstract class MahjongPlayer {
 						if(!c.equals(new Tile[0]))
 							return assistCheck(three);
 					}
-				}
+				}*/
 		// Incomplete section
 			}else if(check.get(lcv).size() == 2){
 				// May be the pair or the overlap of sequences

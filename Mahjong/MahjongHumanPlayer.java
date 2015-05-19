@@ -45,12 +45,12 @@ public class MahjongHumanPlayer extends MahjongPlayer {
 				break;
 			}
 			if (choice > 0 && choice <= check.size()) {
-				show.add(check.get(choice - 1));
+				show.add(check.get(--choice));
 				MahjongGame.discarded.remove(thrown);
 				for(int lcv = 0; lcv < 3; lcv++){
-					if(check.get(choice - 1)[lcv].equals(thrown))
+					if(check.get(choice)[lcv].equals(thrown))
 						continue;
-					rem(check.get(choice - 1)[lcv]);
+					rem(check.get(choice)[lcv]);
 				}
 				hand = diviForSort();
 				discard(west, north, east, south);
@@ -113,13 +113,12 @@ public class MahjongHumanPlayer extends MahjongPlayer {
 					notInHand = true;
 				}
 			} while (notInHand);
-			int lcv;
-			for (lcv = 0; lcv < hand.size(); lcv++) 
-				if (hand.get(lcv).toString().equals(temp.toString())) 
-					return hand.remove(lcv);
-			if(lcv == hand.size()){
+			Tile check = rem(temp);
+			if(check.toString() == new Tile(0, 0).toString()){
 				notDiscarded = true;
 				System.out.println("That tile doesn't exist in your hand.");
+			}else{
+				return check;
 			}
 		} while (notDiscarded);
 		return new Tile(0, 0);
@@ -129,8 +128,11 @@ public class MahjongHumanPlayer extends MahjongPlayer {
 	private void display(MahjongPlayer west, MahjongPlayer north, MahjongPlayer east, MahjongPlayer south) {
 		// Shows discarded tiles
 		System.out.print("\nDiscarded: ");
-		for (int lcv = 0; lcv < MahjongGame.discarded.size(); lcv++)
+		for (int lcv = 0; lcv < MahjongGame.discarded.size(); lcv++){
 			System.out.print(MahjongGame.discarded.get(lcv).toString() + "  ");
+			if(lcv % 5 == 4)
+				System.out.println();
+		}
 		// Shows West's visible tiles
 		System.out.print("\n\n" + west.name + " show: ");
 		for (int lcv = 0; lcv < west.show.size(); lcv++)
@@ -188,18 +190,15 @@ public class MahjongHumanPlayer extends MahjongPlayer {
 				Tile[] add = {thrown, thrown, thrown};
 				show.add(add);
 				MahjongGame.discarded.remove(thrown);
-				hand.remove(thrown);
-				hand.remove(thrown);
+				rem(thrown);
+				rem(thrown);
 				break;
 			case 2:
 				System.out.println(name + " made a gong.");
 				Tile[] add2 = {thrown, thrown, thrown, thrown};
 				show.add(add2);
-				for(int count = 0; count < 3; count++)
-					hand.remove(thrown);
 				MahjongGame.discarded.remove(thrown);
-				for(int lcv = 0; lcv < 3; lcv++)
-					hand.remove(thrown);
+				rem(thrown);
 				Tile get = MahjongGame.wall.remove(MahjongGame.wall.size() - 1);
 				hand.add(get);
 				// Check for flower
@@ -244,8 +243,8 @@ public class MahjongHumanPlayer extends MahjongPlayer {
 				System.out.println(name + " made a pong.");
 				Tile[] add = {thrown, thrown, thrown};
 				show.add(add);
-				System.out.println(hand.remove(thrown));
-				hand.remove(thrown);
+				rem(thrown);
+				rem(thrown);
 				MahjongGame.discarded.remove(thrown);
 				break;
 			case 2:
